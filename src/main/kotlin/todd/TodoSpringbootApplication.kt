@@ -1,4 +1,4 @@
-package todd.firstSpringInitializer
+package todd
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

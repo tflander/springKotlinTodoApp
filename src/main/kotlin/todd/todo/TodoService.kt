@@ -1,7 +1,6 @@
-package todd.firstSpringInitializer
+package todd.todo
 
 import org.springframework.stereotype.Service
-import todd.todo.Todo
 import java.time.LocalDate
 import java.util.*
 
