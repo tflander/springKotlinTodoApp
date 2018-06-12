@@ -30,7 +30,7 @@ class TodoController {
 
     @PostMapping("/users/{name}/todo")
     fun addTodoForUser(@PathVariable name: String, @RequestBody todo: Todo): ResponseEntity<*> {
-        val (id) = todoService.add(todo.user!!, todo.desc!!, todo.targetDate!!)
+        val (id) = todoService.add(todo.user, todo.desc, todo.targetDate)
                 ?: return ResponseEntity.noContent().build<Any>()
         val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri()
         return ResponseEntity.created(uri).build<Any>()

@@ -20,7 +20,6 @@ import java.time.LocalDate
 @WebMvcTest(TodoController::class)
 class TodoIntegrationTest {
 
-
     @Autowired
     lateinit var mockMvc: MockMvc
 
@@ -35,14 +34,22 @@ class TodoIntegrationTest {
     @Throws(Exception::class)
     fun retrieveForName() {
 
-        val mockList = listOf(Todo(0, "todd", "descr", LocalDate.now(), false))
+        val mockList = listOf(
+                Todo(
+                        id = 0,
+                        user = "todd",
+                        desc = "descr",
+                        targetDate = LocalDate.now(),
+                        isDone = false
+                )
+        )
 
-        `when`<List<Todo>>(todoService.todosForName("Todd")).thenReturn(mockList)
+        `when`(todoService.todosForName("Todd")).thenReturn(mockList)
 
         val result = mockMvc.perform(
                 MockMvcRequestBuilders.get("/users/Todd/todos")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andReturn()
 
         JSONAssert.assertEquals(

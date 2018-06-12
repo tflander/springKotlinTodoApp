@@ -14,7 +14,7 @@ class TodoService {
         init()
     }
 
-    fun init() {
+    final fun init() {
         todos = mutableListOf()
         todos.add(createTodo("Todd", "better spring"))
         todos.add(createTodo("Todd", "spring Kotlin"))
@@ -23,7 +23,7 @@ class TodoService {
     }
 
     fun todosForName(name: String): List<Todo> {
-        return todos.filter { todo -> todo.user?.toLowerCase() ==(name.toLowerCase()) }
+        return todos.filter { todo -> todo.user.toLowerCase() ==(name.toLowerCase()) }
     }
 
     fun add(name: String, desc: String, targetDate: LocalDate): Todo {
@@ -33,9 +33,7 @@ class TodoService {
     }
 
     fun byId(id: Int): Optional<Todo> {
-        val firstOrNull = todos
-                .filter { todo -> todo.id === id }
-                .firstOrNull()
+        val firstOrNull = todos.firstOrNull { todo -> todo.id === id }
 
         return if(firstOrNull == null) Optional.empty() else Optional.of(firstOrNull)
     }

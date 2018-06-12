@@ -4,8 +4,8 @@ import java.time.LocalDate
 
 data class Todo(
         val id: Int = 0,
-        val user: String? = null,
-        val desc: String? = null,
-        val targetDate: LocalDate? = null,
-        val isDone: Boolean = false
+        val user: String,
+        val desc: String,
+        val targetDate: LocalDate,
+        val isDone: Boolean
 )
