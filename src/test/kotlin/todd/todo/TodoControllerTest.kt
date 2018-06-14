@@ -58,7 +58,7 @@ class TodoControllerTest {
     }
 
     @Test
-    fun retrieveById() {
+    fun retrieveByIdHappyPath() {
 
         val todo = Todo(0, "todd", "descr", LocalDate.now(), false)
         `when`(todoService.byId(0)).thenReturn(Optional.of(todo))
@@ -72,6 +72,19 @@ class TodoControllerTest {
                 result.body,
                 true
         )
+    }
+
+    @Test
+    fun retrieveByNotFoundFailure() {
+
+        `when`(todoService.byId(99)).thenReturn(Optional.empty())
+
+        val result = testRestTemplate.getForEntity("/api/users/Todd/todo/99",
+                String::class.java)
+        assert(result.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
+        val body = objectMapper.readTree(result.body)
+        assert(body.get("message").textValue()).isEqualTo("Todo with id 99 not found")
+        assert(body.get("details").textValue()).isEqualTo("Not Found")
     }
 
     @Test

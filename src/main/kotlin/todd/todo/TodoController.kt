@@ -24,7 +24,7 @@ class TodoController {
         return if (todoOptional.isPresent) {
             todoOptional.get()
         } else {
-            "Todo with id $id not found"
+            throw TodoNotFoundException("Todo with id $id not found")
         }
     }
 
