@@ -29,10 +29,13 @@ class TodoController {
             throw TodoNotFoundException("Todo with id $id not found")
         }
 
-        val resource = Resource<Todo>(todoOptional.get())
-        val linkbyId: ControllerLinkBuilder = linkTo(methodOn(this::class.java).retrieveForName(name))
-        resource.add(linkbyId.withRel("parent"))
-        return resource
+        // Note: this HATEOAS snippet breaks being able to do get from browser.
+//        val resource = Resource<Todo>(todoOptional.get())
+//        val linkbyId: ControllerLinkBuilder = linkTo(methodOn(this::class.java).retrieveForName(name))
+//        resource.add(linkbyId.withRel("parent"))
+//        return resource
+
+        return todoOptional.get();
     }
 
     @PostMapping("/users/{name}/todo")
