@@ -1,0 +1,12 @@
+{
+  "id": 0,
+  "user": "Todd",
+  "desc": "descr",
+  "targetDate": "2018-06-08",
+  "done": false,
+  "_links": {
+    "parent": {
+      "href": "http://localhost:8080/api/users/Todd/todos"
+    }
+  }
+}
