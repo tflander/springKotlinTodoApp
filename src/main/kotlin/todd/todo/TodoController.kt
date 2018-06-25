@@ -1,12 +1,10 @@
 package todd.todo
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.hateoas.Resource
-import org.springframework.hateoas.mvc.ControllerLinkBuilder
-import org.springframework.hateoas.mvc.ControllerLinkBuilder.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api")
@@ -39,7 +37,7 @@ class TodoController {
     }
 
     @PostMapping("/users/{name}/todo")
-    fun addTodoForUser(@PathVariable name: String, @RequestBody todo: Todo): ResponseEntity<*> {
+    fun addTodoForUser(@PathVariable name: String, @Valid @RequestBody todo: Todo): ResponseEntity<*> {
         val (id) = todoService.add(todo.user, todo.desc, todo.targetDate)
                 ?: return ResponseEntity.noContent().build<Any>()
         val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri()

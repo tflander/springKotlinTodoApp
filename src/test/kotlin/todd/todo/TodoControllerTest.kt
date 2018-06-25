@@ -113,15 +113,26 @@ class TodoControllerTest {
     @Test
     fun addNewTodo() {
         val now = LocalDate.now()
-        val todo = Todo(0, "todd", "descr", now, false)
+        val todo = Todo(0, "todd", "long description", now, false)
         val todoWithIdAdded = todo.copy(id=4)
         val jsonNode = objectMapper.valueToTree<JsonNode>(todo)
-        println(jsonNode.toString())
-        `when`<Todo>(todoService.add("todd", "descr", now)).thenReturn(todoWithIdAdded)
+        `when`<Todo>(todoService.add("todd", "long description", now)).thenReturn(todoWithIdAdded)
 
         val result = testRestTemplate.postForEntity("/api/users/Todd/todo", jsonNode, JsonNode::class.java)
         assert(result.statusCode).isEqualTo(HttpStatus.CREATED)
         assert(result.headers.get("location")).equals("/users/Todd/todo/4")
+    }
+
+    @Test
+    fun addNewTodoDescriptionTooShort() {
+        val now = LocalDate.now()
+        val todo = Todo(0, "todd", "2short", now, false)
+        val todoWithIdAdded = todo.copy(id=4)
+        val jsonNode = objectMapper.valueToTree<JsonNode>(todo)
+        `when`<Todo>(todoService.add("todd", "2short", now)).thenReturn(todoWithIdAdded)
+
+        val result = testRestTemplate.postForEntity("/api/users/Todd/todo", jsonNode, JsonNode::class.java)
+        assert(result.statusCode).isEqualTo(HttpStatus.BAD_REQUEST)
     }
 
     @Throws(IOException::class)

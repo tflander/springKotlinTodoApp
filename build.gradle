@@ -13,6 +13,16 @@ buildscript {
 	}
 }
 
+/*
+./gradlew sonarqube \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=05563ad4230988668a5868d1d32d334380b3864d
+ */
+
+plugins {
+	id "org.sonarqube" version "2.6"
+}
+
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
