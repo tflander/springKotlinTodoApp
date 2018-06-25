@@ -1,5 +1,6 @@
 package todd.todo
 
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -14,12 +15,21 @@ class TodoController {
     lateinit var todoService: TodoService
 
     @GetMapping("users/{name}/todos")
+    @ApiOperation(
+            value = "Retrieve all Todos for a user",
+            notes = "pagination is not supported",
+            produces = "application/json"
+    )
     fun retrieveForName(@PathVariable name: String): List<Todo> {
         return todoService.todosForName(name)
     }
 
 
     @GetMapping("users/{name}/todo/{id}")
+    @ApiOperation(
+            value = "Retrieve todo by id",
+            produces = "application/json"
+    )
     fun retrieveById(@PathVariable name: String, @PathVariable id: Int): Any {
         val todoOptional = todoService.byId(id)
 
